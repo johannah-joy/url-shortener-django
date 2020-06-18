@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Shorten URL</title>
+</head>
+<body>
+    <h2>Let's Shorten Your URL!</h2>
+    <form action="{% url 'url_app:submission' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="long_url" placeholder="your url to be shortened">
+        <button type="submit">shorten me</button>
+    </form>
+
+    {% if short_url_link %}
+        <p>Your shortened url is: <a href="{% url 'url_app:redirection' short_url_link.short_url %}">{{ short_url_link.short_url }}</a></p>
+    {% endif %}
+</body>
+</html>
